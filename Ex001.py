@@ -25,12 +25,44 @@ class Lista:
         else:
            self.fim.dir = novo
            novo.esq = self.fim
-           #teste
+           #teste circulo
            self.inicio.esq = novo
            novo.dir = self.inicio
            
         self.fim = novo        
-        self.tamanho += 1       
+        self.tamanho += 1     
+
+    def inserir_posi(self, valor, posic):
+        novo = No(valor)
+        if self.tamanho == 0:
+            self.inicio = novo
+        elif posic == 0:
+            self.inicio.esq = novo
+            novo.dir = self.inicio
+
+            self.fim.dir = novo
+            novo.esq = self.fim
+            self.inicio = novo
+
+
+        elif posic == self.tamanho:
+            self.inserir_final(valor)
+
+        else:
+            for _ in range(posic):
+                if _ == 0:
+                    Proc = self.inicio
+                else:
+                    Proc = Proc.dir 
+            
+            ant = Proc.esq
+            ant.dir = novo
+            novo.esq = Proc
+            novo.dir = Proc
+            Proc.esq = novo
+
+        self.tamanho+=1
+
     
     def pesquisar(self, valor):
         aux = self.inicio
@@ -50,7 +82,9 @@ class Lista:
             elif aux == self.inicio: # remove o primeiro elemento
                 aux.dir.esq = None
                 self.inicio = aux.dir
-                aux.dir = None           
+                aux.dir = None    
+                #circulo
+                #       
             elif aux == self.fim: # remove o último elemento
                 aux.esq.dir = None
                 self.fim = aux.esq
@@ -60,7 +94,7 @@ class Lista:
                 aux.dir.esq = aux.esq
                 aux.esq = None
                 aux.dir = None
-                print("KARALHO")
+                print("KARALHO")#mecanismo alta qualidade para rastreio
             aux = None
             self.tamanho -= 1    
             
@@ -76,5 +110,5 @@ listaEnc.remover(20)
 print("")
 listaEnc.imprimir()
 print("")
-listaEnc.inserir_final(40)
+listaEnc.inserir_posi(40,2)
 listaEnc.imprimir()
