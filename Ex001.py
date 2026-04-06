@@ -12,13 +12,9 @@ class Lista:
         
     def imprimir(self):
         aux = self.inicio
-        i=0
-        while aux:
+        for _ in range(self.tamanho):
             print(aux.dado, end="  ")
             aux = aux.dir
-            i+=1
-            if(i>=self.tamanho):
-                break
     
     def inserir_final(self, valor):
         novo = No(valor)
@@ -30,15 +26,15 @@ class Lista:
            self.fim.dir = novo
            novo.esq = self.fim
            #teste
-           self.fim.esq = novo.esq
-           novo.dir = self.fim.esq
+           self.inicio.esq = novo
+           novo.dir = self.inicio
            
         self.fim = novo        
         self.tamanho += 1       
     
     def pesquisar(self, valor):
         aux = self.inicio
-        while aux:
+        for _ in range(self.tamanho):
             if aux.dado == valor:
                 return aux
             aux = aux.dir
