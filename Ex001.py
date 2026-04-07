@@ -36,6 +36,7 @@ class Lista:
         novo = No(valor)
         if self.tamanho == 0:
             self.inicio = novo
+            self.fim = novo
         elif posic == 0:
             self.inicio.esq = novo
             novo.dir = self.inicio
@@ -56,10 +57,10 @@ class Lista:
                     Proc = Proc.dir 
             
             ant = Proc.esq
-            ant.dir = novo
-            novo.esq = Proc
+            novo.esq = ant
             novo.dir = Proc
             Proc.esq = novo
+            ant.dir = novo
 
         self.tamanho+=1
 
@@ -80,15 +81,17 @@ class Lista:
                 self.inicio = None
                 self.fim = None                
             elif aux == self.inicio: # remove o primeiro elemento
-                aux.dir.esq = None
-                self.inicio = aux.dir
-                aux.dir = None    
                 #circulo
-                #       
+                aux.dir.esq = self.fim
+                self.inicio = aux.dir
+                aux.dir = None  
+                
             elif aux == self.fim: # remove o último elemento
-                aux.esq.dir = None
+                #circulo
+                aux.esq.dir = self.inicio
                 self.fim = aux.esq
                 aux.esq = None
+                
             else:
                 aux.esq.dir = aux.dir
                 aux.dir.esq = aux.esq
@@ -104,11 +107,16 @@ listaEnc = Lista()
 listaEnc.inserir_final(10)
 listaEnc.inserir_final(20)
 listaEnc.inserir_final(30)
+listaEnc.imprimir()
+print("")
 
+listaEnc.remover(10) 
 listaEnc.imprimir()
+print("")
+
+listaEnc.remover(30)
+listaEnc.imprimir()
+print("")
+
 listaEnc.remover(20)
-print("")
-listaEnc.imprimir()
-print("")
-listaEnc.inserir_posi(40,2)
 listaEnc.imprimir()
