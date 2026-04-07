@@ -28,21 +28,42 @@ class Lista:
         while aux:
             print(aux.dado, end="  ")
             aux = aux.dir
+            print("")
     
     def inserir_final(self, valor):
         novo = No(valor)
         
         # verifica se a lista está vazia
         if self.tamanho == 0:            
-            self.inicio = novo          
-        elif(self.fim.dado.prior==0): #verificar prioridade
+            self.inicio = novo  
+            self.fim = novo
+                
+        elif(valor.prior==0): #verificar prioridade
            self.fim.dir = novo
            novo.esq = self.fim
-        else:
-            self.fim.dir = novo
-            novo.esq = self.fim
+           self.fim = novo
            
-        self.fim = novo        
+        else:
+            aux = self.inicio
+            while aux and aux.dado.prior != 0: #percorre a lista ate entrar na parte de não prioritario
+                aux = aux.dir
+                
+            if aux is None: #todos prioridade 1
+                self.fim.dir = novo
+                novo.esq = self.fim
+                self.fim = novo
+                
+            elif aux == self.inicio:
+                novo.dir = self.inicio
+                self.inicio.esq  = novo
+                self.inicio = novo
+                
+            else:
+                aux.esq.dir = novo
+                novo.esq = aux.esq
+                novo.dir = aux
+                aux.esq = novo
+              
         self.tamanho += 1       
     
     def pesquisar(self, valor):
@@ -78,11 +99,17 @@ class Lista:
                 
 lista = Lista()
 
-ex = No(Paciente("Ihan",1))
-
-print(ex)
-
 lista.inserir_final(Paciente("ihan",1))
 lista.inserir_final(Paciente("Ihago",0))
 
+lista.imprimir()
+
+lista.inserir_final(Paciente("caralho",1))
+lista.inserir_final(Paciente("porra",0))
+lista.inserir_final(Paciente("jumento",0))
+lista.inserir_final(Paciente("candango",1))
+lista.inserir_final(Paciente("Paraiba",1))
+lista.inserir_final(Paciente("Fud",0))
+
+print("Divi")
 lista.imprimir()
