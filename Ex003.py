@@ -26,7 +26,7 @@ class Lista:
     def imprimir(self):
         aux = self.inicio
         while aux:
-            print(aux.dado, end="  ")
+            print(aux.dado, end=" ")
             aux = aux.dir
             print("")
     
@@ -68,48 +68,59 @@ class Lista:
     
     def pesquisar(self, valor):
         aux = self.inicio
+        pos = 0
         while aux:
             if aux.dado.nome == valor:
-                return aux
+                return print(f"Nome:{aux.dado.nome} |Prioridade: {aux.dado.prior} | Posição: {pos}")
             aux = aux.dir
-        return None
+            pos+=1
+        return ("Não encontrado")
     
-    def remover(self, valor):
-        aux = self.pesquisar(valor)
-        
-        if aux is not None:
-            if self.tamanho == 1: # a lista tem apenas um valor
-                self.inicio = None
-                self.fim = None                
-            elif aux == self.inicio: # remove o primeiro elemento
-                aux.dir.esq = None
-                self.inicio = aux.dir
-                aux.dir = None                
-            elif aux == self.fim: # remove o último elemento
-                aux.esq.dir = None
-                self.fim = aux.esq
-                aux.esq = None
-            else:
-                aux.esq.dir = aux.dir
-                aux.dir.esq = aux.esq
-                aux.esq = None
-                aux.dir = None
-            aux = None
-            self.tamanho -= 1                
+    def atender(self):
+        aux = self.inicio
+        if self.tamanho == 1: # a lista tem apenas um valor
+            self.inicio = None
+            self.fim = None   
+        else:
+            aux.dir.esq = None
+            self.inicio = aux.dir
+            aux.dir = None   
+                     
+        aux = None
+        self.tamanho -= 1      
+        return print(f"Nome: {self.inicio.dado.nome}| Prioridade: {self.inicio.dado.prior}")          
                 
 lista = Lista()
 
-lista.inserir_final(Paciente("ihan",1))
-lista.inserir_final(Paciente("Ihago",0))
-
-lista.imprimir()
-
-lista.inserir_final(Paciente("caralho",1))
-lista.inserir_final(Paciente("porra",0))
-lista.inserir_final(Paciente("jumento",0))
-lista.inserir_final(Paciente("candango",1))
-lista.inserir_final(Paciente("Paraiba",1))
-lista.inserir_final(Paciente("Fud",0))
-
-print("Divi")
-lista.imprimir()
+i = 0
+while i != 5:
+    
+    match i:
+        case 0:
+            i = int(input("1 - Inserir paciente\n2 - Imprimir listar de pacientes\n3 - Buscar paciente\n4 - Atender paciente\n5 - Sair\n"))
+        case 1:
+            nome = input("Insira o nome do paciente: ")
+            prior = int(input("Insira o grau de prioridade \n0 - normal | 1 - prioridade\n"))
+            lista.inserir_final(Paciente(nome, prior))
+            i=0
+            print("\n")
+        case 2:
+            lista.imprimir()
+            i=0
+            print("\n")
+        case 3:
+            nome = input("Insira o nome a ser buscado: ")
+            lista.pesquisar(nome)
+            i=0
+            print("\n")
+        case 4:
+            lista.atender()
+            i=0
+            print("\n")
+        case 5:
+            i = 5
+            break
+        case _:
+            print("Insira um valor valido")
+            i=0
+            print("\n")
