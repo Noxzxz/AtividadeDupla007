@@ -100,23 +100,26 @@ class Lista:
                 print("KARALHO")#mecanismo alta qualidade para rastreio
             aux = None
             self.tamanho -= 1    
+
+def main():
+    listaEnc = Lista()
+
+    listaEnc.inserir_final(10)
+    listaEnc.inserir_final(20)
+    listaEnc.inserir_final(30)
+    listaEnc.imprimir()
+    print("")
+
+    listaEnc.remover(10) 
+    listaEnc.imprimir()
+    print("")
+
+    listaEnc.remover(30)
+    listaEnc.imprimir()
+    print("")
+
+    listaEnc.remover(20)
+    listaEnc.imprimir()    
             
-
-listaEnc = Lista()
-
-listaEnc.inserir_final(10)
-listaEnc.inserir_final(20)
-listaEnc.inserir_final(30)
-listaEnc.imprimir()
-print("")
-
-listaEnc.remover(10) 
-listaEnc.imprimir()
-print("")
-
-listaEnc.remover(30)
-listaEnc.imprimir()
-print("")
-
-listaEnc.remover(20)
-listaEnc.imprimir()
+if __name__ == "__main__":
+    main()
